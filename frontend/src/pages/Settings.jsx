@@ -57,7 +57,7 @@ const Settings = () => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="px-4 space-y-12"
+            className="px-4 space-y-12 pb-24"
             style={{ maxWidth: '800px', margin: '0 auto' }}
         >
             {/* Header Section */}
@@ -76,12 +76,12 @@ const Settings = () => {
             </motion.div>
 
             {/* Main Configuration Grid */}
-            <div className="grid gap-10">
+            <div className="grid" style={{ gap: '3rem' }}>
                 {/* Visual Style */}
                 <motion.section variants={itemVariants} className="space-y-5">
                     <div className="flex items-center gap-3 px-2">
                         <Sparkles size={16} style={{ color: '#f59e0b' }} />
-                        <h3 className="text-xs font-black uppercase tracking-widest text-[var(--text-muted)]">Visual Environment</h3>
+                        <h3 className="text-sm font-black uppercase tracking-widest text-[var(--text-muted)]">Visual Environment</h3>
                     </div>
                     <div className="card grid gap-4 p-6">
                         <SettingCard
@@ -116,7 +116,7 @@ const Settings = () => {
                 <motion.section variants={itemVariants} className="space-y-5">
                     <div className="flex items-center gap-3 px-2">
                         <Shield size={16} style={{ color: '#22c55e' }} />
-                        <h3 className="text-xs font-black uppercase tracking-widest text-[var(--text-muted)]">Security & Data</h3>
+                        <h3 className="text-sm font-black uppercase tracking-widest text-[var(--text-muted)]">Security & Data</h3>
                     </div>
                     <div className="card grid gap-4 p-6">
                         <SettingCard
@@ -173,7 +173,7 @@ const Settings = () => {
             {/* Footer Credits */}
             <motion.div
                 variants={itemVariants}
-                className="pt-12 flex flex-col md-flex items-center justify-between text-[var(--text-muted)] font-bold text-xs uppercase tracking-widest gap-4"
+                className="pt-20 flex flex-col md-flex items-center justify-between text-[var(--text-muted)] font-bold text-xs uppercase tracking-widest gap-4"
                 style={{ borderTop: '1px solid var(--border-color)' }}
             >
                 <div>Deployment Build: FX-992-DELTA</div>

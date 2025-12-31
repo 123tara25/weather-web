@@ -136,21 +136,70 @@ const AISection = () => {
 
                 {/* Input Area */}
                 <div className="p-6 bg-[var(--bg-card)] border-t border-[var(--border-color)]">
-                    <form onSubmit={handleSend} className="flex items-center w-full h-14 rounded-full bg-[var(--bg-page)] border-2 border-[var(--border-color)] focus-within:border-[var(--primary-color)] transition-all px-2 relative">
-                        <input
-                            type="text"
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
-                            placeholder="Type message here..."
-                            className="bg-transparent border-none outline-none text-[var(--text-primary)] placeholder:text-[var(--text-muted)] h-full pl-4 pr-2 w-full flex-grow text-base"
-                        />
-                        <button
-                            type="submit"
-                            disabled={!input.trim()}
-                            className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-[var(--primary-color)] to-[var(--secondary-color)] text-white rounded-full hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center shadow-md p-0"
+                    <form onSubmit={handleSend} style={{ width: '100%' }}>
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            width: '100%',
+                            height: '64px',
+                            borderRadius: '24px',
+                            backgroundColor: 'var(--bg-page)',
+                            border: '2.5px solid #e2e8f0', // explicit color for visibility, or var(--border-color)
+                            paddingLeft: '1.5rem',
+                            paddingRight: '0.5rem',
+                            boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+                            transition: 'all 0.3s ease'
+                        }}
+                            onFocus={(e) => {
+                                e.currentTarget.style.borderColor = '#3b82f6';
+                                e.currentTarget.style.boxShadow = '0 0 0 4px rgba(59, 130, 246, 0.1)';
+                            }}
+                            onBlur={(e) => {
+                                e.currentTarget.style.borderColor = '#e2e8f0';
+                                e.currentTarget.style.boxShadow = '0 1px 2px 0 rgba(0, 0, 0, 0.05)';
+                            }}
                         >
-                            <Send size={18} className="translate-x-0.5 translate-y-0.5" />
-                        </button>
+                            <input
+                                type="text"
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                placeholder="Type message here..."
+                                style={{
+                                    flex: 1,
+                                    background: 'transparent',
+                                    border: 'none',
+                                    outline: 'none',
+                                    color: 'var(--text-primary)',
+                                    height: '100%',
+                                    fontSize: '1rem',
+                                    fontWeight: 500,
+                                    minWidth: 0
+                                }}
+                            />
+                            <button
+                                type="submit"
+                                disabled={!input.trim()}
+                                style={{
+                                    backgroundColor: input.trim() ? '#3b82f6' : '#cbd5e1',
+                                    width: '48px',
+                                    height: '48px',
+                                    marginLeft: '0.5rem',
+                                    borderRadius: '16px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    color: 'white',
+                                    border: 'none',
+                                    cursor: input.trim() ? 'pointer' : 'not-allowed',
+                                    transition: 'all 0.3s ease',
+                                    opacity: input.trim() ? 1 : 0.7
+                                }}
+                                onMouseEnter={(e) => { if (input.trim()) e.target.style.backgroundColor = '#2563eb'; }}
+                                onMouseLeave={(e) => { if (input.trim()) e.target.style.backgroundColor = '#3b82f6'; }}
+                            >
+                                <Send size={20} strokeWidth={2.5} />
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
