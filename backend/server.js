@@ -13,7 +13,7 @@ app.use(express.json());
 app.get('/api/news', async (req, res) => {
     try {
         const { category } = req.query;
-        const apiKey = 'addb060679b3c383a2fe5d617e8cea0b'; // News API Key
+        const apiKey = process.env.NEWS_API_KEY; // Accessing from .env
 
         const response = await axios.get('https://newsapi.org/v2/top-headlines', {
             params: {
@@ -31,7 +31,7 @@ app.get('/api/news', async (req, res) => {
 
 // --- NEW WEATHER ROUTES ---
 
-const WEATHER_API_KEY = '43171d6f5b1e31e6591ef1af7d8f4a8a'; // Weather API Key (Secure on Backend)
+const WEATHER_API_KEY = process.env.WEATHER_API_KEY; // Accessing from .env
 const WEATHER_BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
 // Get Current Weather

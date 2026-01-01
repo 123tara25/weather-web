@@ -13,8 +13,8 @@ export const WeatherProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Initialize city from localStorage or default to null (for geolocation)
-    const [city, setCity] = useState(() => localStorage.getItem('weather-city') || null);
+    // Initialize city as null to force geolocation check first
+    const [city, setCity] = useState(null);
 
     // CHANGED: Generating requests to our OWN Backend now
     // No API Key here anymore! Logic moved to server.js
@@ -79,21 +79,22 @@ export const WeatherProvider = ({ children }) => {
     };
 
     const fetchCurrentUserLocation = () => {
-        // This function now starts the watch
         stopLocationWatch();
 
         if (navigator.geolocation) {
             setLoading(true);
-            watchIdRef.current = navigator.geolocation.watchPosition(
+            // Use getCurrentPosition for immediate check on load
+            navigator.geolocation.getCurrentPosition(
                 (position) => {
                     fetchWeatherByCoords(position.coords.latitude, position.coords.longitude);
                 },
                 (err) => {
                     console.warn("Geolocation error:", err);
                     setLoading(false);
-                    // Use stored city or default if geo fails
-                    if (city) {
-                        fetchWeather(city);
+                    // Use stored city (fallback) or default if geo fails
+                    const savedCity = localStorage.getItem('weather-city');
+                    if (savedCity) {
+                        fetchWeather(savedCity);
                     } else {
                         fetchWeather('London');
                     }
@@ -101,7 +102,8 @@ export const WeatherProvider = ({ children }) => {
                 { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
             );
         } else {
-            if (city) fetchWeather(city);
+            const savedCity = localStorage.getItem('weather-city');
+            if (savedCity) fetchWeather(savedCity);
             else fetchWeather('London');
         }
     };

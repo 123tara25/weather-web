@@ -103,10 +103,14 @@ const AISection = () => {
                                     </div>
                                 )}
 
-                                <div className={`max-w-[75%] px-6 py-4 rounded-[24px] font-medium leading-relaxed ${msg.sender === 'user'
-                                    ? 'bg-gradient-to-br from-[var(--primary-color)] to-[var(--secondary-color)] text-white rounded-br-none shadow-lg'
-                                    : 'bg-[var(--bg-page)] border border-[var(--border-color)] rounded-bl-none shadow-sm dark:bg-slate-900/40 text-[var(--text-primary)]'
-                                    }`}>
+                                <div
+                                    className="max-w-[75%] font-medium leading-relaxed"
+                                    style={{
+                                        backgroundColor: 'transparent',
+                                        color: 'var(--text-primary)',
+                                        padding: '0.5rem 0'
+                                    }}
+                                >
                                     <p className="text-sm md:text-base">{msg.text}</p>
                                 </div>
 
