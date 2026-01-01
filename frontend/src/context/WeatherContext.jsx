@@ -16,8 +16,9 @@ export const WeatherProvider = ({ children }) => {
     // Initialize city from localStorage or default to null (for geolocation)
     const [city, setCity] = useState(() => localStorage.getItem('weather-city') || null);
 
-    const API_KEY = '43171d6f5b1e31e6591ef1af7d8f4a8a';
-    const BASE_URL = 'https://api.openweathermap.org/data/2.5';
+    // CHANGED: Generating requests to our OWN Backend now
+    // No API Key here anymore! Logic moved to server.js
+    const BASE_URL = 'http://localhost:5000/api';
 
     // Ref to store the watch ID
     const watchIdRef = useRef(null);
@@ -43,10 +44,11 @@ export const WeatherProvider = ({ children }) => {
         setLoading(true);
         setError(null);
         try {
-            const weatherRes = await axios.get(`${BASE_URL}/weather?q=${searchCity}&units=metric&appid=${API_KEY}`);
+            // Calling OUR Backend
+            const weatherRes = await axios.get(`${BASE_URL}/weather?city=${searchCity}`);
             setWeather(weatherRes.data);
 
-            const forecastRes = await axios.get(`${BASE_URL}/forecast?q=${searchCity}&units=metric&appid=${API_KEY}`);
+            const forecastRes = await axios.get(`${BASE_URL}/forecast?city=${searchCity}`);
             setForecast(forecastRes.data);
 
             setCity(searchCity);
@@ -62,11 +64,12 @@ export const WeatherProvider = ({ children }) => {
         setLoading(true);
         setError(null);
         try {
-            const weatherRes = await axios.get(`${BASE_URL}/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`);
+            // Calling OUR Backend
+            const weatherRes = await axios.get(`${BASE_URL}/weather?lat=${lat}&lon=${lon}`);
             setWeather(weatherRes.data);
             setCity(weatherRes.data.name);
 
-            const forecastRes = await axios.get(`${BASE_URL}/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`);
+            const forecastRes = await axios.get(`${BASE_URL}/forecast?lat=${lat}&lon=${lon}`);
             setForecast(forecastRes.data);
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to fetch weather data');
